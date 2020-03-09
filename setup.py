@@ -1,9 +1,9 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
     name="markdown-macros",
     version="0.1.3",
-    packages=find_packages(),
+    packages=["mdx_macros"],
     author="Weston Nielson",
     author_email="wnielson@github",
     description="An extension for python-markdown that add Trac-like macro support.",
@@ -16,4 +16,6 @@ setup(
     entry_points={
         "markdown.extensions": ["macros = mdx_macros:MacroExtension"]
     },
+    tests_require=["nose"],
+    test_suite="nose.collector",
 )
