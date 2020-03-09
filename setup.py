@@ -13,4 +13,7 @@ setup(
     install_requires=[
         "Markdown>=2.1.1"
     ],
+    entry_points={
+        "markdown.extensions": ["macros = mdx_macros:MacroExtension"]
+    },
 )
