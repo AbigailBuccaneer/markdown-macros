@@ -46,10 +46,10 @@ class MacroExtension(markdown.Extension):
     """
     Macro Extension for Python-Markdown.
     """
-    def __init__(self, config):
+    def __init__(self, **kwargs):
         # set extension defaults
         self.config = {'macros': []}
-        self.config.update(config)
+        self.config.update(kwargs)
 
     def extendMarkdown(self, md, md_globals):
         macroPattern = MacroPattern(MACRO_RE, self.config)
@@ -101,9 +101,9 @@ class MacroBlockParser(markdown.blockprocessors.BlockProcessor):
                 elem.text = block
                 logging.error("Invalid macro: %s" % macro_name)
         
-def makeExtension(configItems=None, **configDict):
+def makeExtension(*args, **kwargs):
     # old markdown passes the config as a list of pairs as the first positional
     # argument, new markdown passes the config as kwargs.
-    config = {}
-    config.update(configItems or [], **configDict)
-    return MacroExtension(config)
+    for arg in args:
+        kwargs.update(arg)
+    return MacroExtension(**kwargs)
